@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var mysql = require('mysql');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -36,6 +36,18 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+//Connect to MySQL DB
+var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'sreekar',
+    password: 'sreekar2019',
+    database: 'nodemysql',
+});
+connection.connect((err) => {
+    if (err) throw err;
+    console.log("MySql Connection Successful!");
 });
 
 module.exports = app;
